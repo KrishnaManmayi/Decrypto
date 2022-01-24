@@ -11,11 +11,14 @@ import { CryptoContext } from "../store/CryptoContext";
 import useFetch from "../api/useFetch";
 import { TrendingCoinsApi } from "../api/api";
 
+import CircularProgress from "@mui/material/CircularProgress";
+import { style } from "@mui/system";
+
 const Banner = () => {
   const { currency } = useContext(CryptoContext);
-  const trendingCoinsList = useFetch(TrendingCoinsApi(currency));
-  const trendingCoins = trendingCoinsList.data;
-
+  const trendingCoinsResponse = useFetch(TrendingCoinsApi(currency));
+  const trendingCoins = trendingCoinsResponse.data;
+  const isLoading = trendingCoinsResponse.loading;
   return (
     <div className={styles.banner + " main-container"}>
       <div className={styles.left}>
@@ -23,14 +26,21 @@ const Banner = () => {
       </div>
       <div className={styles.right}>
         <h2>
-          Trending now
+          Trending Cryptocurrencies by Market Cap
           <MdLocalFireDepartment />
         </h2>
-        <TrendingCarousel>
-          {trendingCoins.map((coin) => (
-            <TrendingCoin key={coin.id} coin={coin} />
-          ))}
-        </TrendingCarousel>
+        {isLoading ? (
+          <div className={styles.loading}>
+            <CircularProgress />
+            <CircularProgress />
+          </div>
+        ) : (
+          <TrendingCarousel>
+            {trendingCoins.map((coin) => (
+              <TrendingCoin key={coin.id} coin={coin} />
+            ))}
+          </TrendingCarousel>
+        )}
       </div>
     </div>
   );

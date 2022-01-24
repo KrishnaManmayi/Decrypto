@@ -5,6 +5,16 @@ import { CryptoContext } from "./../store/CryptoContext";
 import { MdArrowDropUp } from "react-icons/md";
 import { MdArrowDropDown } from "react-icons/md";
 
+const UsCurrencyFormatter = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+});
+
+const IndiaCurrencyFormatter = new Intl.NumberFormat("en-IN", {
+  style: "currency",
+  currency: "INR",
+});
+
 const TrendingCoin = (props) => {
   const { currency } = useContext(CryptoContext);
   const coin = props.coin;
@@ -15,7 +25,8 @@ const TrendingCoin = (props) => {
     ) : (
       <MdArrowDropDown fontSize="large" />
     );
-  const currencySymbol = currency === "USD" ? "$" : "Rs.";
+  const currencyFormatter =
+    currency === "USD" ? UsCurrencyFormatter : IndiaCurrencyFormatter;
 
   return (
     <div className={styles.coinContainer}>
@@ -28,7 +39,7 @@ const TrendingCoin = (props) => {
       </div>
       <div className={styles.item3}>
         <p>{coin.name}</p>
-        <p>{currencySymbol + coin.current_price}</p>
+        <p>{currencyFormatter.format(coin.current_price)}</p>
       </div>
       <div className={styles.item4}>
         <p className={priceChange >= 0 ? styles.increase : styles.decrease}>

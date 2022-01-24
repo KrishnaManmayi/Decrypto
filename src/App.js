@@ -8,6 +8,7 @@ import Banner from "./components/Banner";
 import Navbar from "./components/Navbar";
 
 import CryptoProvider from "./store/CryptoContext";
+import Currency from "./components/Currency";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Banner />} />
         <Route path="/cryptocurrencies" element={<Cryptocurrencies />} />
+        <Route path="/currency/:currencySymbol" element={<Currency />} />
         <Route path="/exchanges" element={<Exchanges />} />
         <Route path="/news" element={<News />} />
       </Routes>

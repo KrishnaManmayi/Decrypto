@@ -1,6 +1,8 @@
 import React from "react";
 import Slider from "react-slick";
 
+import styles from "./TrendingCarousel.module.css";
+
 const TrendingCarousel = (props) => {
   var settings = {
     dots: false,
@@ -29,7 +31,11 @@ const TrendingCarousel = (props) => {
     ],
   };
 
-  return <Slider {...settings}>{props.children}</Slider>;
+  return (
+    <Slider {...settings} className={styles.slider}>
+      {props.children}
+    </Slider>
+  );
 };
 
 export default TrendingCarousel;

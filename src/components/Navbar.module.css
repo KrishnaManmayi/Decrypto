@@ -3,6 +3,7 @@
   background-color: white;
   position: sticky;
   top: 0;
+  z-index: 99;
 }
 header {
   display: flex;
@@ -53,7 +54,7 @@ nav a {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-left: 1.5rem;
+    margin-left: 2rem;
     gap: 2rem;
     height: 100%;
   }
