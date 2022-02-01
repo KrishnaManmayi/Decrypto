@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Lora:wght@400;500&display=swap");
+
 :root {
   /* Colour palette for the application */
 
@@ -17,9 +19,9 @@ body {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: "Roboto", sans-serif;
+  font-family: "Lora", serif;
   font-weight: 400;
-  background-color: var(--lightWhite);
+  background-color: white;
 }
 
 .main-container {

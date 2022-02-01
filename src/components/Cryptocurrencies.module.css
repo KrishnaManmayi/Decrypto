@@ -45,11 +45,3 @@
 .decrease {
   color: var(--redSalsa);
 }
-
-.tablerow td:nth-child(2) {
-  background-color: #fbfbfe;
-}
-.tablerow:hover {
-  background-color: #e6e8e6;
-  cursor: pointer;
-}

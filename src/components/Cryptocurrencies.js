@@ -13,10 +13,22 @@ import {
 import styles from "./Cryptocurrencies.module.css";
 import { MdArrowDropUp } from "react-icons/md";
 import { MdArrowDropDown } from "react-icons/md";
-
 import { CoinsListApi } from "../api/api";
 import useFetch from "../api/useFetch";
 import { CryptoContext } from "../store/CryptoContext";
+import { styled } from "@mui/material/styles";
+
+const TableRowStyled = styled(TableRow)(() => ({
+  backgroundColor: "white",
+  "&:hover": {
+    backgroundColor: "#f8f9fa",
+    cursor: "pointer",
+  },
+}));
+
+const TableCellStyled = styled(TableCell)(() => ({
+  fontSize: "1rem",
+}));
 
 const columns = [
   {
@@ -26,7 +38,6 @@ const columns = [
   {
     id: "coin",
     label: "Coin",
-    style: { position: "sticky", left: 0, zIndex: 10 },
   },
   {
     id: "price",
@@ -53,11 +64,13 @@ const columns = [
 const UsCurrencyFormatter = new Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "USD",
+  notation: "compact",
 });
 
 const IndiaCurrencyFormatter = new Intl.NumberFormat("en-IN", {
   style: "currency",
   currency: "INR",
+  notation: "compact",
 });
 
 const Cryptocurrencies = () => {
@@ -104,8 +117,8 @@ const Cryptocurrencies = () => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-  const rowClickHandler = (coinSymbol) => {
-    navigate(`/currency/${coinSymbol}`);
+  const rowClickHandler = (coinId) => {
+    navigate(`/currency/${coinId}`);
   };
 
   return (
@@ -133,9 +146,9 @@ const Cryptocurrencies = () => {
               <TableHead>
                 <TableRow>
                   {columns.map((column) => (
-                    <TableCell key={column.id} style={column.style}>
+                    <TableCellStyled key={column.id} style={column.style}>
                       {column.label}
-                    </TableCell>
+                    </TableCellStyled>
                   ))}
                 </TableRow>
               </TableHead>
@@ -143,16 +156,13 @@ const Cryptocurrencies = () => {
                 {rows
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((rowData) => (
-                    <TableRow
+                    <TableRowStyled
                       key={rowData.id}
-                      onClick={rowClickHandler.bind(null, rowData.symbol)}
-                      className={styles.tablerow}>
-                      <TableCell>{rowData.market_cap_rank}</TableCell>
-                      <TableCell
-                        style={{
-                          position: "sticky",
-                          left: 0,
-                        }}>
+                      onClick={rowClickHandler.bind(null, rowData.id)}>
+                      <TableCellStyled>
+                        {rowData.market_cap_rank}
+                      </TableCellStyled>
+                      <TableCellStyled>
                         <div className={styles.coin}>
                           <span className={styles.coinImage}>
                             <img src={rowData.image} alt="" />
@@ -164,11 +174,11 @@ const Cryptocurrencies = () => {
                             {rowData.symbol}
                           </span>
                         </div>
-                      </TableCell>
-                      <TableCell>
+                      </TableCellStyled>
+                      <TableCellStyled>
                         {currencyFormatter.format(rowData.current_price)}
-                      </TableCell>
-                      <TableCell>
+                      </TableCellStyled>
+                      <TableCellStyled>
                         <span
                           className={
                             rowData.price_change_percentage_24h_in_currency >= 0
@@ -183,8 +193,8 @@ const Cryptocurrencies = () => {
                           ).toFixed(2)}
                           %
                         </span>
-                      </TableCell>
-                      <TableCell>
+                      </TableCellStyled>
+                      <TableCellStyled>
                         <span
                           className={
                             rowData.price_change_percentage_7d_in_currency >= 0
@@ -199,12 +209,12 @@ const Cryptocurrencies = () => {
                           ).toFixed(2)}
                           %
                         </span>
-                      </TableCell>
-                      <TableCell>
+                      </TableCellStyled>
+                      <TableCellStyled>
                         {currencyFormatter.format(rowData.market_cap)}
-                      </TableCell>
-                      <TableCell>{}</TableCell>
-                    </TableRow>
+                      </TableCellStyled>
+                      <TableCellStyled>{}</TableCellStyled>
+                    </TableRowStyled>
                   ))}
               </TableBody>
             </Table>

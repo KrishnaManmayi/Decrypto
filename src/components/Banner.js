@@ -12,7 +12,6 @@ import useFetch from "../api/useFetch";
 import { TrendingCoinsApi } from "../api/api";
 
 import CircularProgress from "@mui/material/CircularProgress";
-import { style } from "@mui/system";
 
 const Banner = () => {
   const { currency } = useContext(CryptoContext);
