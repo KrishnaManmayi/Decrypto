@@ -1,0 +1,99 @@
+.progress {
+  display: flex;
+  justify-content: center;
+  margin: 3rem;
+}
+.headerBox {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 2rem;
+  border-radius: 10px;
+  margin: 1.5rem;
+  padding: 1rem;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+}
+.coinMain {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-transform: capitalize;
+  font-size: 1.1rem;
+}
+.coinMain .title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.coinMain .title a {
+  color: var(--ultramarineBlue);
+}
+.infoBox {
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.infoInnerBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  width: 85vw;
+  font-size: 1.1rem;
+}
+.centerBox {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.lineChartBox {
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+}
+.optionsBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.optionsBox span {
+  padding: 20px;
+}
+.optionsBox div {
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+@media (min-width: 768px) {
+  .infoInnerBox {
+    width: 25vw;
+  }
+  .headerBox {
+    margin: 1.5rem 4rem;
+  }
+  .infoBox {
+    gap: 0.5rem;
+    justify-content: space-evenly;
+  }
+  .centerBox {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  .statisticsBox {
+    width: 25%;
+  }
+  .lineChartBox {
+    width: 75%;
+  }
+  .optionsBox {
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 1rem;
+  }
+}
