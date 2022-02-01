@@ -13,6 +13,13 @@
   padding: 1rem;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
 }
+.headerBox a {
+  color: var(--ultramarineBlue);
+  text-decoration: none;
+}
+.headerBox a:hover {
+  color: var(--redSalsa);
+}
 .coinMain {
   display: flex;
   flex-direction: column;
@@ -50,10 +57,20 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 1rem;
 }
 .lineChartBox {
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
   padding: 1rem;
+  width: 100%;
+}
+.statisticsBox {
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  width: 80%;
+}
+.statisticsBox header {
+  margin: 0.5rem auto 1rem auto;
 }
 .optionsBox {
   display: flex;

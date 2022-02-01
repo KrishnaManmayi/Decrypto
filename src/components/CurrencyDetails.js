@@ -11,6 +11,7 @@ import { RiMoneyCnyCircleFill } from "react-icons/ri";
 import { GiMoneyStack } from "react-icons/gi";
 import { BsBoxArrowUpRight } from "react-icons/bs";
 import LineChart from "./LineChart";
+import { MdArrowDropUp, MdArrowDropDown } from "react-icons/md";
 
 const UsCurrencyFormatter = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -24,6 +25,19 @@ const IndiaCurrencyFormatter = new Intl.NumberFormat("en-IN", {
   notation: "compact",
 });
 
+const priceChangeStyled = (priceChange) =>
+  priceChange >= 0 ? (
+    <span style={{ color: "#1dd15a" }}>
+      <MdArrowDropUp fontSize="large" />
+      {Math.abs(priceChange).toFixed(2)}%
+    </span>
+  ) : (
+    <span style={{ color: "#ef5959" }}>
+      <MdArrowDropDown fontSize="large" />
+      {Math.abs(priceChange).toFixed(2)}%
+    </span>
+  );
+
 const Currency = () => {
   const params = useParams();
   const { currency } = useContext(CryptoContext);
@@ -32,15 +46,81 @@ const Currency = () => {
   const coinId = params.coinId;
   const { data, loading, error } = useFetch(CoinApi(coinId));
   console.log(data);
-  return (
-    <div className="main-container">
-      {loading ? (
-        <div className={styles.progress}>
-          <CircularProgress />
-        </div>
-      ) : error ? (
-        "Error"
-      ) : data && Object.keys(data).length !== 0 ? (
+
+  if (loading) {
+    return (
+      <div className={styles.progress}>
+        <CircularProgress />
+      </div>
+    );
+  }
+  if (error) {
+    return "Error";
+  }
+  if (data && Object.keys(data).length !== 0) {
+    const statistics = [
+      { title: "Market Cap Rank", value: `#${data.market_cap_rank}` },
+      {
+        title: "24h High",
+        value: `${currencyFormatter.format(
+          data.market_data.high_24h[currency.toLowerCase()]
+        )}`,
+      },
+      {
+        title: "24h Low",
+        value: `${currencyFormatter.format(
+          data.market_data.low_24h[currency.toLowerCase()]
+        )}`,
+      },
+      { title: "Liquidity Score", value: `${data.liquidity_score}` },
+      {
+        title: "Circulating Supply",
+        value: `${data.market_data.circulating_supply}`,
+      },
+      {
+        title: "Price Change% (24h)",
+        value: priceChangeStyled(
+          data.market_data.price_change_percentage_24h_in_currency[
+            currency.toLowerCase()
+          ]
+        ),
+      },
+      {
+        title: "Price Change % (7d)",
+        value: priceChangeStyled(
+          data.market_data.price_change_percentage_7d_in_currency[
+            currency.toLowerCase()
+          ]
+        ),
+      },
+      {
+        title: "Price Change % (30d)",
+        value: priceChangeStyled(
+          data.market_data.price_change_percentage_30d_in_currency[
+            currency.toLowerCase()
+          ]
+        ),
+      },
+      {
+        title: "Price Change % (1y)",
+        value: priceChangeStyled(
+          data.market_data.price_change_percentage_1y_in_currency[
+            currency.toLowerCase()
+          ]
+        ),
+      },
+      {
+        title: "Market Cap Change % (24h)",
+        value: priceChangeStyled(
+          data.market_data.market_cap_change_percentage_24h_in_currency[
+            currency.toLowerCase()
+          ]
+        ),
+      },
+    ];
+
+    return (
+      <div className="main-container">
         <div className={styles.currency}>
           <div className={styles.headerBox}>
             <div className={styles.coinMain}>
@@ -52,7 +132,14 @@ const Currency = () => {
                 </a>
               </div>
             </div>
-            <p>{HTMLReactParser(data.description["en"].split(". ")[0])}</p>
+            <p>
+              {HTMLReactParser(
+                data.description["en"].split(". ")[0] +
+                  ". " +
+                  data.description["en"].split(". ")[1] +
+                  "."
+              )}
+            </p>
           </div>
           <div className={styles.infoBox}>
             <div className={styles.infoInnerBox}>
@@ -108,15 +195,33 @@ const Currency = () => {
             <div className={styles.statisticsBox}>
               <header>
                 <img src={data.image["thumb"]} alt={data.id + " image"} />
+                <span style={{ color: "rgba(0,0,0,0.7)", fontWeight: "bold" }}>
+                  {data.symbol.toUpperCase()}
+                </span>
+                <span style={{ fontWeight: "bold" }}>Coin Statistics</span>
               </header>
+              <main>
+                {statistics.map((entry) => (
+                  <div
+                    key={entry.title}
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      margin: "1.5rem auto",
+                    }}>
+                    <span style={{ color: "gray" }}>{entry.title}</span>
+                    <span>{entry.value}</span>
+                  </div>
+                ))}
+              </main>
             </div>
           </div>
         </div>
-      ) : (
-        "Something went wrong. Please try later"
-      )}
-    </div>
-  );
+      </div>
+    );
+  } else {
+    return "Something is wrong. Please try later";
+  }
 };
 
 export default Currency;

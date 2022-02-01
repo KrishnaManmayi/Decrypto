@@ -2,8 +2,7 @@ import React, { useContext } from "react";
 import styles from "./TrendingCoin.module.css";
 
 import { CryptoContext } from "./../store/CryptoContext";
-import { MdArrowDropUp } from "react-icons/md";
-import { MdArrowDropDown } from "react-icons/md";
+import { MdArrowDropUp, MdArrowDropDown } from "react-icons/md";
 
 const UsCurrencyFormatter = new Intl.NumberFormat("en-US", {
   style: "currency",
