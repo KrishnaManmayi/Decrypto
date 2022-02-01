@@ -1,9 +1,10 @@
 .navbar {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  font-weight: 500;
   position: sticky;
   top: 0;
-  z-index: 99;
+  z-index: 200;
+  background-color: white;
 }
 header {
   display: flex;
@@ -29,8 +30,7 @@ nav.active {
   gap: 1rem;
 }
 nav a {
-  font-size: 1rem;
-  font-weight: 400;
+  font-size: 1.1rem;
   text-decoration: none;
   color: black;
 }
