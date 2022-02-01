@@ -8,11 +8,13 @@ import { MdArrowDropDown } from "react-icons/md";
 const UsCurrencyFormatter = new Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "USD",
+  notation: "compact",
 });
 
 const IndiaCurrencyFormatter = new Intl.NumberFormat("en-IN", {
   style: "currency",
   currency: "INR",
+  notation: "compact",
 });
 
 const TrendingCoin = (props) => {
