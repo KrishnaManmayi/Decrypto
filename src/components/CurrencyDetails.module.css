@@ -62,7 +62,7 @@
 .lineChartBox {
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
   padding: 1rem;
-  width: 100%;
+  width: 98%;
 }
 .statisticsBox {
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
@@ -90,6 +90,7 @@
 @media (min-width: 768px) {
   .infoInnerBox {
     width: 25vw;
+    flex-wrap: wrap;
   }
   .headerBox {
     margin: 1.5rem 4rem;
@@ -98,6 +99,13 @@
     gap: 0.5rem;
     justify-content: space-evenly;
   }
+  .optionsBox {
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 1rem;
+  }
+}
+@media (min-width: 1200px) {
   .centerBox {
     flex-direction: row;
     align-items: flex-start;
@@ -107,10 +115,5 @@
   }
   .lineChartBox {
     width: 75%;
-  }
-  .optionsBox {
-    flex-direction: row;
-    justify-content: space-between;
-    margin: 1rem;
   }
 }

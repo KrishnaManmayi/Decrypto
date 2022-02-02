@@ -146,6 +146,13 @@ const Currency = () => {
               <p>
                 <RiMoneyCnyCircleFill />
                 Current Price
+                <span style={{ fontSize: "0.9rem", marginLeft: "5px" }}>
+                  {priceChangeStyled(
+                    data.market_data.price_change_percentage_24h_in_currency[
+                      currency.toLowerCase()
+                    ]
+                  )}
+                </span>
               </p>
               <p>
                 {currencyFormatter.format(
@@ -157,6 +164,14 @@ const Currency = () => {
               <p>
                 <GiMoneyStack />
                 Market Cap
+                <span style={{ fontSize: "0.9rem", marginLeft: "5px" }}>
+                  {priceChangeStyled(
+                    data.market_data
+                      .market_cap_change_percentage_24h_in_currency[
+                      currency.toLowerCase()
+                    ]
+                  )}
+                </span>
               </p>
               <p>
                 {currencyFormatter.format(
