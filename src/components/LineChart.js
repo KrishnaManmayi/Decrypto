@@ -42,6 +42,10 @@ const LineChart = ({ coinId, currency, days }) => {
     return "Error";
   }
   if (data && Object.keys(data).length !== 0) {
+    const label =
+      days === 1
+        ? `Price ( Past ${days} Day ) in ${currency}`
+        : `Price ( Past ${days} Days ) in ${currency}`;
     return (
       <Line
         data={{
@@ -57,7 +61,7 @@ const LineChart = ({ coinId, currency, days }) => {
           datasets: [
             {
               data: prices.map((price) => price[1]),
-              label: `Price ( Past ${days} Days ) in ${currency}`,
+              label: label,
               borderColor: "#ef5959",
             },
           ],

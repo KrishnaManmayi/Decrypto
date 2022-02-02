@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import styles from "./CurrencyDetails.module.css";
+import useFetch from "../api/useFetch";
+import HTMLReactParser from "html-react-parser";
 import { CircularProgress } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { CoinApi } from "../api/api";
-import useFetch from "../api/useFetch";
-import HTMLReactParser from "html-react-parser";
 import { CryptoContext } from "../store/CryptoContext";
 import { AiFillThunderbolt } from "react-icons/ai";
 import { RiMoneyCnyCircleFill } from "react-icons/ri";
@@ -12,6 +12,8 @@ import { GiMoneyStack } from "react-icons/gi";
 import { BsBoxArrowUpRight } from "react-icons/bs";
 import LineChart from "./LineChart";
 import { MdArrowDropUp, MdArrowDropDown } from "react-icons/md";
+import OptionsBar from "./UI/OptionsBar";
+import { optionToDays } from "../utils/optionToDays";
 
 const UsCurrencyFormatter = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -45,7 +47,17 @@ const Currency = () => {
     currency === "USD" ? UsCurrencyFormatter : IndiaCurrencyFormatter;
   const coinId = params.coinId;
   const { data, loading, error } = useFetch(CoinApi(coinId));
+  const [typeOption, setTypeOption] = useState(0);
+  const [daysOption, setDaysOption] = useState(1);
   console.log(data);
+
+  const typeOptionUpdateHandler = (index) => {
+    setTypeOption(index);
+  };
+
+  const daysOptionUpdateHandler = (index) => {
+    setDaysOption(index);
+  };
 
   if (loading) {
     return (
@@ -194,18 +206,22 @@ const Currency = () => {
           <div className={styles.centerBox}>
             <div className={styles.lineChartBox}>
               <div className={styles.optionsBox}>
-                <div className={styles.type}>
-                  <span>Price</span>
-                  <span>Market Cap</span>
-                </div>
-                <div className={styles.days}>
-                  <span>Day</span>
-                  <span>Week</span>
-                  <span>Month</span>
-                  <span>Year</span>
-                </div>
+                <OptionsBar
+                  options={["Price", "Market Cap"]}
+                  initialSelectedButtonIndex={0}
+                  updateSelectedOption={typeOptionUpdateHandler}
+                />
+                <OptionsBar
+                  options={["Day", "Week", "Month", "Year"]}
+                  initialSelectedButtonIndex={1}
+                  updateSelectedOption={daysOptionUpdateHandler}
+                />
               </div>
-              <LineChart coinId={coinId} currency={currency} days={365} />
+              <LineChart
+                coinId={coinId}
+                currency={currency}
+                days={optionToDays(daysOption)}
+              />
             </div>
             <div className={styles.statisticsBox}>
               <header>

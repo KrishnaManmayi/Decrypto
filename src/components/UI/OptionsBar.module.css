@@ -1,0 +1,34 @@
+.optionsBar button {
+  font-size: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-left: none;
+  border-right: none;
+  padding: 0.7rem 1.5rem;
+}
+.optionsBar button:first-child {
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+}
+.optionsBar button:last-child {
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+}
+.selectedButton {
+  position: relative;
+  color: white;
+  z-index: 0;
+}
+.selectedButton::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 25px;
+  width: 100%;
+  height: 100%;
+  background-color: var(--ultramarineBlue);
+}
