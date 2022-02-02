@@ -25,12 +25,12 @@ ChartJS.register(
   Legend
 );
 
-const LineChart = ({ coinId, currency, days }) => {
+const LineChart = ({ coinId, currency, days, type }) => {
   const { data, loading, error } = useFetch(
     HistoricalDataApi(coinId, currency, days)
   );
-  const prices = data.prices;
   console.log(data);
+
   if (loading) {
     return (
       <div className={styles.progress}>
@@ -46,10 +46,11 @@ const LineChart = ({ coinId, currency, days }) => {
       days === 1
         ? `Price ( Past ${days} Day ) in ${currency}`
         : `Price ( Past ${days} Days ) in ${currency}`;
+    const chartData = type === "market_caps" ? data.market_caps : data.prices;
     return (
       <Line
         data={{
-          labels: prices.map((price) => {
+          labels: chartData.map((price) => {
             let date = new Date(price[0]);
             let time =
               date.getHours() > 12
@@ -60,7 +61,7 @@ const LineChart = ({ coinId, currency, days }) => {
 
           datasets: [
             {
-              data: prices.map((price) => price[1]),
+              data: chartData.map((price) => price[1]),
               label: label,
               borderColor: "#ef5959",
             },

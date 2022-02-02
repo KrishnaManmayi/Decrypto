@@ -20,6 +20,7 @@ const OptionsBar = ({
           index === selectedButtonIndex ? `${styles.selectedButton}` : "";
         return (
           <button
+            key={index}
             className={classes}
             onClick={selectOptionHandler.bind(null, index)}>
             {option}

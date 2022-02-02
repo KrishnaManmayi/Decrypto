@@ -14,6 +14,7 @@ import LineChart from "./LineChart";
 import { MdArrowDropUp, MdArrowDropDown } from "react-icons/md";
 import OptionsBar from "./UI/OptionsBar";
 import { optionToDays } from "../utils/optionToDays";
+import { optionToType } from "../utils/optionToType";
 
 const UsCurrencyFormatter = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -221,6 +222,7 @@ const Currency = () => {
                 coinId={coinId}
                 currency={currency}
                 days={optionToDays(daysOption)}
+                type={optionToType(typeOption)}
               />
             </div>
             <div className={styles.statisticsBox}>
