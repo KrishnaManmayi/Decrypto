@@ -16,6 +16,7 @@ import OptionsBar from "./UI/OptionsBar";
 import { optionToDays } from "../utils/optionToDays";
 import { optionToType } from "../utils/optionToType";
 import { currencyFormatter } from "../utils/currencyFormatter";
+import { getTrimmedDescription } from "../utils/getTrimmedDescription";
 
 const priceChangeStyled = (priceChange) =>
   priceChange >= 0 ? (
@@ -138,12 +139,7 @@ const Currency = () => {
               </div>
             </div>
             <p>
-              {HTMLReactParser(
-                data.description["en"].split(". ")[0] +
-                  ". " +
-                  data.description["en"].split(". ")[1] +
-                  "."
-              )}
+              {HTMLReactParser(getTrimmedDescription(data.description["en"]))}
             </p>
           </div>
           <div className={styles.infoBox}>
