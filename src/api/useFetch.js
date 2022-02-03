@@ -26,13 +26,13 @@ const reducer = (state, action) => {
   }
 };
 
-const useFetch = (url) => {
+const useFetch = (url, options) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: ACTIONS.INITIATE_REQUEST });
       try {
-        const response = await axios.get(url);
+        const response = await axios.get(url, options? JSON.parse(options) : null);
         dispatch({ type: ACTIONS.FETCH_DATA, payload: response });
       } catch (error) {
         dispatch({ type: ACTIONS.ERROR, payload: error.error });
@@ -40,7 +40,7 @@ const useFetch = (url) => {
     };
 
     fetchData();
-  }, [url]);
+  },[url,options]);
   return state;
 };
 

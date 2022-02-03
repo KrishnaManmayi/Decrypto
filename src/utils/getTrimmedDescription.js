@@ -1,4 +1,4 @@
-import { split, Syntax } from "sentence-splitter";
+import { split } from "sentence-splitter";
 export const getTrimmedDescription = (description) => {
   const splitData = split(description);
   let sentencesList = splitData.filter(

@@ -30,7 +30,6 @@ const LineChart = ({ coinId, currency, days, type }) => {
   const { data, loading, error } = useFetch(
     HistoricalDataApi(coinId, currency, days)
   );
-  console.log(data);
 
   if (loading) {
     return (
