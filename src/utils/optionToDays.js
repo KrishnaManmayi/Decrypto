@@ -8,5 +8,7 @@ export const optionToDays = (option) => {
       return 30;
     case 3:
       return 365;
+    default:
+      return 1;
   }
 };

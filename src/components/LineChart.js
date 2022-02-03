@@ -4,6 +4,7 @@ import { HistoricalDataApi } from "../api/api";
 import useFetch from "../api/useFetch";
 import styles from "./LineChart.module.css";
 import { CircularProgress } from "@mui/material";
+import { currencyFormatter } from "../utils/currencyFormatter";
 
 import {
   Chart as ChartJS,
@@ -44,8 +45,8 @@ const LineChart = ({ coinId, currency, days, type }) => {
   if (data && Object.keys(data).length !== 0) {
     const label =
       days === 1
-        ? `Price ( Past ${days} Day ) in ${currency}`
-        : `Price ( Past ${days} Days ) in ${currency}`;
+        ? `${type.toUpperCase()} ( Past ${days} Day ) in ${currency}`
+        : `${type.toUpperCase()} ( Past ${days} Days ) in ${currency}`;
     const chartData = type === "market_caps" ? data.market_caps : data.prices;
     return (
       <Line

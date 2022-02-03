@@ -17,6 +17,7 @@ import { CoinsListApi } from "../api/api";
 import useFetch from "../api/useFetch";
 import { CryptoContext } from "../store/CryptoContext";
 import { styled } from "@mui/material/styles";
+import { currencyFormatter } from "../utils/currencyFormatter";
 
 const TableRowStyled = styled(TableRow)(() => ({
   backgroundColor: "white",
@@ -61,18 +62,6 @@ const columns = [
   },
 ];
 
-const UsCurrencyFormatter = new Intl.NumberFormat("en-US", {
-  style: "currency",
-  currency: "USD",
-  notation: "compact",
-});
-
-const IndiaCurrencyFormatter = new Intl.NumberFormat("en-IN", {
-  style: "currency",
-  currency: "INR",
-  notation: "compact",
-});
-
 const Cryptocurrencies = () => {
   const navigate = useNavigate();
   const [page, setPage] = useState(0);
@@ -81,13 +70,6 @@ const Cryptocurrencies = () => {
   const { currency } = useContext(CryptoContext);
   const { data, error, loading } = useFetch(CoinsListApi(currency));
   const [rows, setRows] = useState([]);
-  const currencyFormatter =
-    currency === "USD" ? UsCurrencyFormatter : IndiaCurrencyFormatter;
-
-  useEffect(() => {
-    setPage(0);
-    searchHandler();
-  }, [data, searchInput]);
 
   const onSearchInputChangeHandler = (event) => {
     setSearchInput(event.target.value);
@@ -120,6 +102,11 @@ const Cryptocurrencies = () => {
   const rowClickHandler = (coinId) => {
     navigate(`/currency/${coinId}`);
   };
+
+  useEffect(() => {
+    setPage(0);
+    searchHandler();
+  }, [data, searchInput]);
 
   return (
     <div className="main-container">
@@ -176,7 +163,7 @@ const Cryptocurrencies = () => {
                         </div>
                       </TableCellStyled>
                       <TableCellStyled>
-                        {currencyFormatter.format(rowData.current_price)}
+                        {currencyFormatter(currency, rowData.current_price)}
                       </TableCellStyled>
                       <TableCellStyled>
                         <span
@@ -211,7 +198,7 @@ const Cryptocurrencies = () => {
                         </span>
                       </TableCellStyled>
                       <TableCellStyled>
-                        {currencyFormatter.format(rowData.market_cap)}
+                        {currencyFormatter(currency, rowData.market_cap)}
                       </TableCellStyled>
                       <TableCellStyled>{}</TableCellStyled>
                     </TableRowStyled>

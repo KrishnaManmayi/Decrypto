@@ -15,18 +15,7 @@ import { MdArrowDropUp, MdArrowDropDown } from "react-icons/md";
 import OptionsBar from "./UI/OptionsBar";
 import { optionToDays } from "../utils/optionToDays";
 import { optionToType } from "../utils/optionToType";
-
-const UsCurrencyFormatter = new Intl.NumberFormat("en-US", {
-  style: "currency",
-  currency: "USD",
-  notation: "compact",
-});
-
-const IndiaCurrencyFormatter = new Intl.NumberFormat("en-IN", {
-  style: "currency",
-  currency: "INR",
-  notation: "compact",
-});
+import { currencyFormatter } from "../utils/currencyFormatter";
 
 const priceChangeStyled = (priceChange) =>
   priceChange >= 0 ? (
@@ -44,8 +33,6 @@ const priceChangeStyled = (priceChange) =>
 const Currency = () => {
   const params = useParams();
   const { currency } = useContext(CryptoContext);
-  const currencyFormatter =
-    currency === "USD" ? UsCurrencyFormatter : IndiaCurrencyFormatter;
   const coinId = params.coinId;
   const { data, loading, error } = useFetch(CoinApi(coinId));
   const [typeOption, setTypeOption] = useState(0);
@@ -75,13 +62,15 @@ const Currency = () => {
       { title: "Market Cap Rank", value: `#${data.market_cap_rank}` },
       {
         title: "24h High",
-        value: `${currencyFormatter.format(
+        value: `${currencyFormatter(
+          currency,
           data.market_data.high_24h[currency.toLowerCase()]
         )}`,
       },
       {
         title: "24h Low",
-        value: `${currencyFormatter.format(
+        value: `${currencyFormatter(
+          currency,
           data.market_data.low_24h[currency.toLowerCase()]
         )}`,
       },
@@ -140,7 +129,10 @@ const Currency = () => {
               <img src={data.image["small"]} alt={data.id + " image"} />
               <div className={styles.title}>
                 {data.id + "  "}
-                <a target="_blank" href={data.links.homepage[0]}>
+                <a
+                  target="_blank"
+                  rel="noreferrer"
+                  href={data.links.homepage[0]}>
                   <BsBoxArrowUpRight />
                 </a>
               </div>
@@ -168,7 +160,8 @@ const Currency = () => {
                 </span>
               </p>
               <p>
-                {currencyFormatter.format(
+                {currencyFormatter(
+                  currency,
                   data.market_data.current_price[currency.toLowerCase()]
                 )}
               </p>
@@ -187,7 +180,8 @@ const Currency = () => {
                 </span>
               </p>
               <p>
-                {currencyFormatter.format(
+                {currencyFormatter(
+                  currency,
                   data.market_data.market_cap[currency.toLowerCase()]
                 )}
               </p>
@@ -198,7 +192,8 @@ const Currency = () => {
                 Total Volume
               </p>
               <p>
-                {currencyFormatter.format(
+                {currencyFormatter(
+                  currency,
                   data.market_data.total_volume[currency.toLowerCase()]
                 )}
               </p>
