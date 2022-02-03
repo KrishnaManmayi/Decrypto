@@ -32,3 +32,9 @@
   height: 100%;
   background-color: var(--ultramarineBlue);
 }
+@media (max-width: 450px) {
+  .optionsBar button {
+    font-size: 0.8rem;
+    padding: 0.5rem 1rem;
+  }
+}
