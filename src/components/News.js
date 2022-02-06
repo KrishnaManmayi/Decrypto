@@ -23,35 +23,52 @@ const News = () => {
   if (data && Object.keys(data).length !== 0) {
     const newsList = data.value;
     console.log(newsList);
-    
+
     return (
-    <div className="main-container">
-    <div className={styles.headerImage}>
-        <img src={NewsImage} alt="news-icon" />
-        <h4>Get latest cryptocurrency news</h4>
+      <div className="main-container">
+        <div className={styles.headerImage}>
+          <img src={NewsImage} alt="news-icon" />
+          <h4>Get latest cryptocurrency news</h4>
+        </div>
+        <div className={styles.newsContainer}>
+          {newsList.map((newsItem, index) => {
+            if (newsItem.image) {
+              return (
+                <div className={styles.newsBox} key={index}>
+                  <div className={styles.header}>
+                    <img
+                      src={newsItem.image.thumbnail.contentUrl}
+                      alt="newsImg"
+                    />
+                    <h3>
+                      {newsItem.name + " - "}
+                      <span style={{ fontStyle: "italic", color: "gray" }}>
+                        {newsItem.provider[0].name}
+                      </span>
+                    </h3>
+                  </div>
+                  <div className={styles.body}>
+                    <p>{HTMLReactParser(newsItem.description)}</p>
+                  </div>
+                  <div className={styles.footer}>
+                    <p>
+                      {moment(newsItem.datePublished).startOf("ss").fromNow()}
+                    </p>
+                    <a
+                      href={newsItem.url}
+                      target="_balnk"
+                      rel="noreferrer"
+                      color="#3861fb">
+                      Read More..
+                    </a>
+                  </div>
+                </div>
+              );
+            }
+          })}
+        </div>
       </div>
-     <div className={styles.newsContainer}>
-      {newsList.map((newsItem,index)=>{
-        if(newsItem.image){
-          return (
-          <div className={styles.newsBox} key={index}>
-              <div className={styles.header}>
-                <img src={newsItem.image.thumbnail.contentUrl} alt="newsImg" />
-                <h3>{newsItem.name +" - "}<span style={{fontStyle: "italic", color: "gray"}}>{newsItem.provider[0].name}</span></h3>
-              </div>
-              <div className={styles.body}>
-                <p>{HTMLReactParser(newsItem.description)}</p>
-              </div>
-              <div className={styles.footer}>
-                <p>{moment(newsItem.datePublished).startOf('ss').fromNow()}</p>
-                <a href={newsItem.url} target="_balnk" rel="noreferrer" color="#3861fb">Read More..</a>
-              </div>
-          </div>  
-          )
-        }
-    })}
-    </div>
-    </div>);
+    );
   } else {
     return "Something is wrong. Please try later";
   }

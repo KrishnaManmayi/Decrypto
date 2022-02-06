@@ -6,7 +6,8 @@ export const getTrimmedDescription = (description) => {
   );
   sentencesList = sentencesList.slice(0, 2);
   let output = sentencesList.reduce(
-    (fullSentence, currentSentence) => fullSentence + currentSentence.raw,
+    (fullSentence, currentSentence) =>
+      fullSentence + currentSentence.raw.concat(" "),
     ""
   );
   return output;

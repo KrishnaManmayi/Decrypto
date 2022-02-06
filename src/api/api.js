@@ -29,3 +29,19 @@ export const NewsApi = () => {
     }),
   ];
 };
+export const CurrencyExchangeRateApi = (primaryCurrency, secondaryCurrency) => {
+  return [
+    "https://alpha-vantage.p.rapidapi.com/query",
+    JSON.stringify({
+      params: {
+        from_currency: primaryCurrency,
+        function: "CURRENCY_EXCHANGE_RATE",
+        to_currency: secondaryCurrency,
+      },
+      headers: {
+        "x-rapidapi-host": "alpha-vantage.p.rapidapi.com",
+        "x-rapidapi-key": process.env.REACT_APP_RAPID_API_KEY,
+      },
+    }),
+  ];
+};

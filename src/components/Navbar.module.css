@@ -63,8 +63,13 @@ nav a {
     display: flex;
     align-items: center;
     padding: 0 1rem;
+    transition: all 0.5s ease-out;
   }
-  nav a:active {
+  nav a:hover {
+    color: var(--ultramarineBlue);
+    background-color: aliceblue;
+  }
+  nav a:focus {
     color: var(--ultramarineBlue);
   }
   .navElementActive {
