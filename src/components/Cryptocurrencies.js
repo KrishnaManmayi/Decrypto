@@ -18,17 +18,27 @@ import useFetch from "../api/useFetch";
 import { CryptoContext } from "../store/CryptoContext";
 import { styled } from "@mui/material/styles";
 import { currencyFormatter } from "../utils/currencyFormatter";
+import { Line } from "react-chartjs-2";
 
 const TableRowStyled = styled(TableRow)(() => ({
   backgroundColor: "white",
   "&:hover": {
-    backgroundColor: "#f8f9fa",
+    backgroundColor: "#e9ecef",
     cursor: "pointer",
   },
 }));
 
 const TableCellStyled = styled(TableCell)(() => ({
   fontSize: "1rem",
+}));
+
+const TableCellLineChartStyled = styled(TableCell)(() => ({
+  fontSize: "1rem",
+  width: "150px",
+  canvas: {
+    width: "50px",
+    height: "50px",
+  },
 }));
 
 const columns = [
@@ -65,11 +75,12 @@ const columns = [
 const Cryptocurrencies = () => {
   const navigate = useNavigate();
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [searchInput, setSearchInput] = useState("");
   const { currency } = useContext(CryptoContext);
   const { data, error, loading } = useFetch(CoinsListApi(currency));
   const [rows, setRows] = useState([]);
+  console.log(data);
 
   const onSearchInputChangeHandler = (event) => {
     setSearchInput(event.target.value);
@@ -119,7 +130,7 @@ const Cryptocurrencies = () => {
             onChange={onSearchInputChangeHandler}
           />
         </div>
-        <TableContainer sx={{ width: "100%", maxHeight: "90vh" }}>
+        <TableContainer sx={{ width: "98%", margin: "auto" }}>
           {loading ? (
             <div className={styles.progressBars}>
               <LinearProgress />
@@ -129,13 +140,15 @@ const Cryptocurrencies = () => {
           ) : error ? (
             <h3>Something went wrong. Try again later</h3>
           ) : (
-            <Table stickyHeader>
-              <TableHead>
+            <Table>
+              <TableHead sx={{ backgroundColor: "#ced4da" }}>
                 <TableRow>
                   {columns.map((column) => (
-                    <TableCellStyled key={column.id} style={column.style}>
+                    <TableCell
+                      key={column.id}
+                      sx={{ fontSize: "1.2rem", height: "2.5rem" }}>
                       {column.label}
-                    </TableCellStyled>
+                    </TableCell>
                   ))}
                 </TableRow>
               </TableHead>
@@ -200,7 +213,49 @@ const Cryptocurrencies = () => {
                       <TableCellStyled>
                         {currencyFormatter(currency, rowData.market_cap)}
                       </TableCellStyled>
-                      <TableCellStyled>{}</TableCellStyled>
+                      <TableCellLineChartStyled>
+                        {
+                          <Line
+                            data={{
+                              labels: [
+                                ...Array(
+                                  rowData.sparkline_in_7d.price.length
+                                ).keys(),
+                              ],
+                              datasets: [
+                                {
+                                  data: rowData.sparkline_in_7d.price,
+                                  borderColor: "#ef5959",
+                                  borderWidth: 2,
+                                  tension: 1,
+                                },
+                              ],
+                            }}
+                            options={{
+                              responsive: true,
+                              maintainAspectRatio: false,
+                              elements: {
+                                point: {
+                                  radius: 0,
+                                },
+                              },
+                              scales: {
+                                y: {
+                                  display: false,
+                                },
+                                x: {
+                                  display: false,
+                                },
+                              },
+                              plugins: {
+                                legend: {
+                                  display: false,
+                                },
+                              },
+                            }}
+                          />
+                        }
+                      </TableCellLineChartStyled>
                     </TableRowStyled>
                   ))}
               </TableBody>
@@ -208,7 +263,7 @@ const Cryptocurrencies = () => {
           )}
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
+          rowsPerPageOptions={[10, 25]}
           component="div"
           count={rows.length}
           rowsPerPage={rowsPerPage}

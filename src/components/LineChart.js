@@ -70,7 +70,7 @@ const LineChart = ({ coinId, currency, days, type }) => {
         options={{
           elements: {
             point: {
-              radius: 1,
+              radius: 2,
             },
           },
         }}
