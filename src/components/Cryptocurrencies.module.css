@@ -28,9 +28,6 @@
   align-items: center;
   gap: 1rem;
 }
-.coinName {
-  font-weight: bold;
-}
 .coinSymbol {
   text-transform: uppercase;
   color: rgba(0, 0, 0, 0.5);

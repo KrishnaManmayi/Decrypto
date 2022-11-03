@@ -18,7 +18,7 @@ export const NewsApi = () => {
         q: "cryptocurrency",
         count: "100",
         freshness: "Week",
-        textFormat: "Html",
+        textFormat: "Raw",
         safeSearch: "Off",
       },
       headers: {
@@ -44,4 +44,7 @@ export const CurrencyExchangeRateApi = (primaryCurrency, secondaryCurrency) => {
       },
     }),
   ];
+};
+export const ExchangesListApi = (resultsPerPage, pageNumber) => {
+  return `https://api.coingecko.com/api/v3/exchanges?per_page=${resultsPerPage}&page=${pageNumber}`;
 };

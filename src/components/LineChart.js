@@ -64,13 +64,14 @@ const LineChart = ({ coinId, currency, days, type }) => {
               data: chartData.map((price) => price[1]),
               label: label,
               borderColor: "#ef5959",
+              tension: 0.5,
             },
           ],
         }}
         options={{
           elements: {
             point: {
-              radius: 2,
+              radius: 1,
             },
           },
         }}

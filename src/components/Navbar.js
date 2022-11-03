@@ -26,11 +26,11 @@ const Navbar = () => {
     <div className={styles.navbar + " main-container"}>
       <header>
         <div className={styles.iconMain}>
-          <IconContext.Provider value={{ size: "1.5rem", title: "Decrypto" }}>
+          <IconContext.Provider value={{ size: "2rem", title: "Decrypto" }}>
             <GiAbstract021 />
           </IconContext.Provider>
           <Link to="/">
-            <h2>Decrypto</h2>
+            <p>Decrypto</p>
           </Link>
         </div>
         <div>

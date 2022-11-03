@@ -30,14 +30,14 @@ const TableRowStyled = styled(TableRow)(() => ({
 
 const TableCellStyled = styled(TableCell)(() => ({
   fontSize: "1rem",
+  fontWeight: "bold",
 }));
 
 const TableCellLineChartStyled = styled(TableCell)(() => ({
-  fontSize: "1rem",
-  width: "150px",
+  width: "120px",
   canvas: {
     width: "50px",
-    height: "50px",
+    height: "30px",
   },
 }));
 
@@ -129,8 +129,9 @@ const Cryptocurrencies = () => {
             value={searchInput}
             onChange={onSearchInputChangeHandler}
           />
+          <div></div>
         </div>
-        <TableContainer sx={{ width: "98%", margin: "auto" }}>
+        <TableContainer sx={{ width: "95%", margin: "auto" }}>
           {loading ? (
             <div className={styles.progressBars}>
               <LinearProgress />
@@ -141,12 +142,18 @@ const Cryptocurrencies = () => {
             <h3>Something went wrong. Try again later</h3>
           ) : (
             <Table>
-              <TableHead sx={{ backgroundColor: "#ced4da" }}>
+              <TableHead>
                 <TableRow>
                   {columns.map((column) => (
                     <TableCell
                       key={column.id}
-                      sx={{ fontSize: "1.2rem", height: "2.5rem" }}>
+                      sx={{
+                        color: "gray",
+                        fontSize: "0.9rem",
+                        fontWeight: "bold",
+                        textTransform: "uppercase",
+                        letterSpacing: "1px",
+                      }}>
                       {column.label}
                     </TableCell>
                   ))}
@@ -167,9 +174,7 @@ const Cryptocurrencies = () => {
                           <span className={styles.coinImage}>
                             <img src={rowData.image} alt="" />
                           </span>
-                          <span className={styles.coinName}>
-                            {rowData.name}
-                          </span>
+                          <span>{rowData.name}</span>
                           <span className={styles.coinSymbol}>
                             {rowData.symbol}
                           </span>
@@ -252,6 +257,7 @@ const Cryptocurrencies = () => {
                                   display: false,
                                 },
                               },
+                              events: [],
                             }}
                           />
                         }

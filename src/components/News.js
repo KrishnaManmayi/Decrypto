@@ -41,10 +41,17 @@ const News = () => {
                       alt="newsImg"
                     />
                     <h3>
-                      {newsItem.name + " - "}
-                      <span style={{ fontStyle: "italic", color: "gray" }}>
-                        {newsItem.provider[0].name}
-                      </span>
+                      {newsItem.name}
+                      {
+                        <span
+                          style={{
+                            fontStyle: "italic",
+                            color: "gray",
+                            fontWeight: "lighter",
+                          }}>
+                          {" - "} {newsItem.provider[0].name}
+                        </span>
+                      }
                     </h3>
                   </div>
                   <div className={styles.body}>

@@ -1,0 +1,22 @@
+.accordionSummary {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.accordion {
+  width: 100%;
+}
+.accordionSummary img {
+  border-radius: 50%;
+}
+
+.exchangesList {
+  width: 100%;
+  margin: auto;
+}
+.loading{
+  width: max-content;
+  margin: 0 auto;
+  margin-bottom: 2rem;
+}

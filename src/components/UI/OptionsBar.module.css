@@ -5,6 +5,9 @@
   border-right: none;
   padding: 0.7rem 1.5rem;
 }
+.optionsBar button:hover {
+  cursor: pointer;
+}
 .optionsBar button:first-child {
   border-left: 1px solid rgba(0, 0, 0, 0.1);
   border-top-left-radius: 25px;
