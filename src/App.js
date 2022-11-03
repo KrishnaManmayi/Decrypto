@@ -9,20 +9,23 @@ import Navbar from "./components/Navbar";
 
 import CryptoProvider from "./store/CryptoContext";
 import CurrencyDetails from "./components/CurrencyDetails";
-
+// Crypto App
 function App() {
-  return (
-    <CryptoProvider>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Banner />} />
-        <Route path="/cryptocurrencies" element={<Cryptocurrencies />} />
-        <Route path="/currency/:coinId" element={<CurrencyDetails />} />
-        <Route path="/exchanges" element={<Exchanges />} />
-        <Route path="/news" element={<News />} />
-      </Routes>
-    </CryptoProvider>
-  );
+    return (
+        <CryptoProvider>
+            <Navbar />
+            <Routes>
+                <Route path="/" element={<Banner />} />
+                <Route
+                    path="/cryptocurrencies"
+                    element={<Cryptocurrencies />}
+                />
+                <Route path="/currency/:coinId" element={<CurrencyDetails />} />
+                <Route path="/exchanges" element={<Exchanges />} />
+                <Route path="/news" element={<News />} />
+            </Routes>
+        </CryptoProvider>
+    );
 }
 
 export default App;
